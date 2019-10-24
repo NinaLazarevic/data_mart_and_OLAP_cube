@@ -1,0 +1,90 @@
+<Schema name="PurchaseSchema">
+  <Cube name="Purchases" visible="true" cache="true" enabled="true">
+    <Table name="purchase_fact">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" foreignKey="WINE_DIM_ID" highCardinality="false" name="Wine">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="WINE_DIM_ID">
+        <Table name="wines_dim">
+        </Table>
+        <Level name="Wine_Name" visible="true" table="wines_dim" column="wine_name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Wine_Year" visible="true" table="wines_dim" column="wine_year" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Wine_Price" visible="true" table="wines_dim" column="price" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Wine_Date_of_Receipt" visible="true" table="wines_dim" column="date_of_receipt" type="Date" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="CUSTOMER_DIM_ID" highCardinality="false" name="Customer">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="CUSTOMER_DIM_ID">
+        <Table name="customers_dim">
+        </Table>
+        <Level name="Customer_Name" visible="true" table="customers_dim" column="customer_full_name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Customer_Country" visible="true" table="customers_dim" column="customer_country" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Customer_Phone_Num" visible="true" table="customers_dim" column="customer_phone_number" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Customer_Date_of_Birth" visible="true" table="customers_dim" column="customer_date_of_birth" type="Date" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="WINE_COLOR_DIM_ID" highCardinality="false" name="Color">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="WINE_COLOR_DIM_ID">
+        <Table name="wine_colors_dim">
+        </Table>
+        <Level name="Color_Name" visible="true" table="wine_colors_dim" column="wine_color_name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="GRAPE_VARIETY_DIM_ID" highCardinality="false" name="Grape Variety">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="GRAPE_VARIETY_DIM_ID">
+        <Table name="grape_varieties_dim">
+        </Table>
+        <Level name="Grape_Name" visible="true" table="grape_varieties_dim" column="grape_variety_name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="COUNTRY_DIM_ID" highCardinality="false" name="Country">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="COUNTRY_DIM_ID">
+        <Table name="countries_dim">
+        </Table>
+        <Level name="Country_Name" visible="true" table="countries_dim" column="country_name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="VINEYARD_DIM_ID" highCardinality="false" name="Vineyard">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="VINEYARD_DIM_ID">
+        <Table name="vineyards_dim">
+        </Table>
+        <Level name="Vineyard_Name" visible="true" table="vineyards_dim" column="vineyard_name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="TimeDimension" visible="true" foreignKey="DATE_DIM_ID" highCardinality="false" name="Date">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="DATE_DIM_ID">
+        <Table name="date_dim">
+        </Table>
+        <Level name="Year" visible="true" table="date_dim" column="sales_year" type="String" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
+        </Level>
+        <Level name="Month" visible="true" table="date_dim" column="sales_month" type="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+        </Level>
+        <Level name="Quarter" visible="true" table="date_dim" column="sales_quarter" type="String" uniqueMembers="false" levelType="TimeQuarters" hideMemberIf="Never">
+        </Level>
+        <Level name="Day_of_Year" visible="true" table="date_dim" column="sales_day_of_year" type="String" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Customer_Number" column="CUSTOMER_DIM_ID" aggregator="distinct-count" visible="true">
+    </Measure>
+    <Measure name="Revenue" column="euros_sold" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="AveragePrice" column="euros_sold" aggregator="avg" visible="true">
+    </Measure>
+    <Measure name="Wine_Number" column="WINE_DIM_ID" aggregator="distinct-count" visible="true">
+    </Measure>
+    <Measure name="Amount_of_Wine_Sold" column="amount_sold" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
